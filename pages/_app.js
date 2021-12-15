@@ -1,15 +1,12 @@
 // import Layout from "../components/layout";
 import "../styles/globals.css";
-import Navbar from "../components/navbar";
-import Footer from "../components/footer";
+import Layout from "../components/layout";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <div>
-      {/* <Navbar /> */}
+    <Layout>
       <Component {...pageProps} />
-      {/* <Footer/> */}
-    </div>
+    </Layout>
   );
 }
 

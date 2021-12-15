@@ -1,8 +1,8 @@
 const Footer = () => {
   return (
-    <Footer>
+    <footer>
       <p>Copyright &copy; Pokemon Company</p>
-    </Footer>
+    </footer>
   );
 };
 

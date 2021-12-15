@@ -2,7 +2,7 @@
   "name": "bloglist",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS=\"--max_old_space_size=4096\" next",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
