@@ -35,7 +35,7 @@ const About = () => {
           Pikachu), books, manga comics, music, merchandise, and a temporary
           theme park. The franchise is also represented in other Nintendo media,
           such as the Super Smash Bros. series, where various Pokémon characters
-          are playable
+          are playable.
         </p>
       </div>
     </>

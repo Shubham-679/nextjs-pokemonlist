@@ -1,9 +1,9 @@
 import CustomHead from "../../components/head";
 import { firstWordCapital, getTypeColor, getWeight, getHeight } from "../../utils/functions";
 import styles from "../../styles/Details.module.css";
-import { url } from "../../utils/contants";
+import { url } from "../../utils/constants";
 
-export const getStaticPaths = async () => {
+export const getStaticPaths = async (context) => {
   const res = await fetch(url + "?limit=500");
   const { results = { data } } = await res.json();
   // map data to an array of path objects with params (id)
@@ -28,7 +28,6 @@ export const getStaticProps = async (context) => {
 };
 
 const Details = ({ pokemon }) => {
-  console.log(pokemon);
   return (
     <>
       <CustomHead

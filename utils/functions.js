@@ -1,4 +1,4 @@
-import { typeColor } from "./contants";
+import { typeColor } from "./constants";
 
 export const firstWordCapital = (word) => {
   return word[0].toUpperCase() + word.substring(1);
