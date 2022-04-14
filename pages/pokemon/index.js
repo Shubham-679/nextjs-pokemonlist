@@ -6,6 +6,7 @@ import { firstWordCapital } from "../../utils/functions";
 import { url, imageUrl } from "../../utils/constants";
 import styles from "../../styles/Pokemon.module.css";
 import { useRouter } from "next/router";
+import Spinner from "../../components/spinner";
 
 export const getServerSideProps = async ({ query }) => {
   // Fetch data before rendering
@@ -25,6 +26,7 @@ const Pokemons = ({ pokemons, paginationProps }) => {
   const [lim, setLim] = useState(query.limit || 10);
   const [ofSet, setOfSet] = useState(query.offset || null);
   const [currentPage, setCurrentPage] = useState(query.page || 1);
+  const [loading, setLoading] = useState(null);
   // const { totalCount, totalPages } = paginationProps;
 
   useEffect(() => {
@@ -32,6 +34,7 @@ const Pokemons = ({ pokemons, paginationProps }) => {
   }, []);
 
   const pagginationHandler = (o = 0, l = 10, cp = 1) => {
+    setLoading(true);
     const currentPath = pathname;
     const currentQuery = { ...query };
     currentQuery.offset = o;
@@ -44,6 +47,9 @@ const Pokemons = ({ pokemons, paginationProps }) => {
       pathname: currentPath,
       query: currentQuery,
     });
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   };
 
   const getImgValue = (str) => {
@@ -60,7 +66,9 @@ const Pokemons = ({ pokemons, paginationProps }) => {
             <h1 style={{ textAlign: "center", marginLeft: "15px" }}>
               All Pokemons
             </h1>
-            <div>Current Page {currentPage}</div>
+            <div style={{ textAlign: "center", marginLeft: "15px" }}>
+              Current Page {currentPage}
+            </div>
           </div>
           <div style={{ display: "inline-flex", marginLeft: "auto" }}>
             <button
@@ -84,22 +92,26 @@ const Pokemons = ({ pokemons, paginationProps }) => {
             </button>
           </div>
         </div>
-        <div className={styles.gridContainer}>
-          {pokemons.map((pokemon) => (
-            <Link href={"/pokemon/" + pokemon.name} key={pokemon.name}>
-              <a className={styles.single}>
-                <img
-                  alt="pokemon"
-                  src={imageUrl + `${getImgValue(pokemon.url)}.svg`}
-                  height={100}
-                  width={120}
-                  style={{ marginTop: "20px" }}
-                />
-                <h3>{firstWordCapital(pokemon.name)}</h3>
-              </a>
-            </Link>
-          ))}
-        </div>
+        {loading ? (
+          <Spinner classes={styles.spin} />
+        ) : (
+          <div className={styles.gridContainer}>
+            {pokemons.map((pokemon) => (
+              <Link href={"/pokemon/" + pokemon.name} key={pokemon.name}>
+                <a className={styles.single}>
+                  <img
+                    alt="pokemon"
+                    src={imageUrl + `${getImgValue(pokemon.url)}.svg`}
+                    height={100}
+                    width={120}
+                    style={{ marginTop: "20px" }}
+                  />
+                  <h3>{firstWordCapital(pokemon.name)}</h3>
+                </a>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
